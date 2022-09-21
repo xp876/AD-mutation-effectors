@@ -1,5 +1,5 @@
 # AD-mutation-effectors
-AD-mutation-effectors
+This is for "AD-Syn-Net: Systematic identification of Alzheimer’s disease-associated mutation and co-mutation vulnerabilities via deep learning".
 
 
 Python packages:
@@ -13,3 +13,4 @@ lime                      0.2.0.1
 keras                     2.4.3
 h5py                      2.10.0
 ```
+
