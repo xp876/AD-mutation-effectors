@@ -2,7 +2,7 @@
 This is for "AD-Syn-Net: Systematic identification of Alzheimer’s disease-associated mutation and co-mutation vulnerabilities via deep learning".
 
 
-Python packages:
+Python packages information:
 ```
 h5py                      2.10.0
 eli5                      0.11.0
