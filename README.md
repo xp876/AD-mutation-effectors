@@ -3,8 +3,7 @@ AD-mutation-effectors
 
 
 # version
-bayesian-optimization
-1.1.0
+bayesian-optimization     1.1.0
 eli5                      0.11.0
 h5py                      2.10.0
 hdf5                      1.10.6
