@@ -114,23 +114,20 @@ from tensorflow.keras import regularizers
 
 
 
-def create_model(dropout_rate_1=0.0,dropout_rate_2=0.0,dropout_rate_3=0.0,uts_1=1,uts_2=1,uts_3=1,uts_4=1,acti_1=1,
+def create_model(dropout_rate_1=0.0,uts_1=1,uts_2=1,acti_1=1,
                  acti_2=1,
-                 acti_3=1,
-                 acti_4=1,
                  init_mode_1=1,
                  init_mode_2=1,
                  init_mode_3=1,
-                 init_mode_4=1,
-                 init_mode_5=1,ll_1=1,ll_2=1,ll_3=1,ll_4=1,ll_5=1):
+                 ll_1=1,ll_2=1,ll_3=1):
         # create model
     input_shape=(X_train.shape[1],)
     inputs=Input(shape=input_shape)
 
     dropout_rate_1 = round(dropout_rate_1, 1)
-    dropout_rate_2 = round(dropout_rate_2, 1)
-    dropout_rate_3 = round(dropout_rate_3, 1)
-    
+
+
+
     if 1 <= uts_1 <= 2:
         uts_1 = 256
     elif 2 < uts_1 <= 3:
@@ -153,37 +150,18 @@ def create_model(dropout_rate_1=0.0,dropout_rate_2=0.0,dropout_rate_3=0.0,uts_1=
     elif 5 < uts_2 <= 6:
         uts_2 = 16    
         
-    if 1 <= uts_3 <= 2:
-        uts_3 = 256
-    elif 2 < uts_3 <= 3:
-        uts_3 = 128
-    elif 3 < uts_3 <= 4:
-        uts_3 = 64
-    elif 4 < uts_3 <= 5:
-        uts_3 = 32
-    elif 5 < uts_3 <= 6:
-        uts_3 = 16    
 
-    if 1 <= uts_4 <= 2:
-        uts_4 = 256
-    elif 2 < uts_4 <= 3:
-        uts_4 = 128
-    elif 3 < uts_4 <= 4:
-        uts_4 = 64
-    elif 4 < uts_4 <= 5:
-        uts_4 = 32
-    elif 5 < uts_4 <= 6:
-        uts_4 = 16    
+
+
+
 
     if uts_2>uts_1:
         uts_2=uts_1
         
-    if uts_3>uts_2:
-        uts_3=uts_2        
 
-    if uts_4>uts_3:
-        uts_4=uts_3  
-        
+
+
+
 
     if 1 <= acti_1 <= 2:
         acti_1 = 'elu'
@@ -199,19 +177,7 @@ def create_model(dropout_rate_1=0.0,dropout_rate_2=0.0,dropout_rate_3=0.0,uts_1=
     elif 3 < acti_2 <= 4:
         acti_2 = 'tanh'
 
-    if 1 <= acti_3 <= 2:
-        acti_3 = 'elu'
-    elif 2 < acti_3 <= 3:
-        acti_3 = 'relu'
-    elif 3 < acti_3 <= 4:
-        acti_3 = 'tanh'
 
-    if 1 <= acti_4 <= 2:
-        acti_4 = 'elu'
-    elif 2 < acti_4 <= 3:
-        acti_4 = 'relu'
-    elif 3 < acti_4 <= 4:
-        acti_4 = 'tanh'
 
     if 1 <= init_mode_1 <= 2:
         init_mode_1 = 'normal'
@@ -234,21 +200,7 @@ def create_model(dropout_rate_1=0.0,dropout_rate_2=0.0,dropout_rate_3=0.0,uts_1=
     elif 3 < init_mode_3 <= 4:
         init_mode_3 = 'uniform'
 
-    if 1 <= init_mode_4 <= 2:
-        init_mode_4 = 'normal'
-    elif 2 < init_mode_4 <= 3:
-        init_mode_4 = 'ones'
-    elif 3 < init_mode_4 <= 4:
-        init_mode_4 = 'uniform'
 
-    if 1 <= init_mode_5 <= 2:
-        init_mode_5 = 'normal'
-    elif 2 < init_mode_5 <= 3:
-        init_mode_5 = 'ones'
-    elif 3 < init_mode_5 <= 4:
-        init_mode_5 = 'uniform'
-        
-        
 
     if 1 <= ll_1 <= 2:
         ll_1 = 1e-4
@@ -271,46 +223,30 @@ def create_model(dropout_rate_1=0.0,dropout_rate_2=0.0,dropout_rate_3=0.0,uts_1=
     elif 3 < ll_3 <= 4:
         ll_3 = 1e-2
         
-    if 1 <= ll_4 <= 2:
-        ll_4 = 1e-4
-    elif 2 < ll_4 <= 3:
-        ll_4 = 1e-3
-    elif 3 < ll_4 <= 4:
-        ll_4 = 1e-2
-
-    if 1 <= ll_5 <= 2:
-        ll_5 = 1e-4
-    elif 2 < ll_5 <= 3:
-        ll_5 = 1e-3
-    elif 3 < ll_5 <= 4:
-        ll_5 = 1e-2
 
 
-
-    ds_1 = Dense(units=uts_1, kernel_initializer=init_mode_1, activation=acti_1,kernel_regularizer=regularizers.l1_l2(l1=ll_1, l2=ll_1))(inputs)
+    ds_1 = GRU(units=uts_1, kernel_initializer=init_mode_1, activation=acti_1,kernel_regularizer=regularizers.l1_l2(l1=ll_1, l2=ll_1))(inputs)
     bn_1=BatchNormalization()(ds_1)
     dp_1=Dropout(dropout_rate_1)(bn_1)
     ds_2 = Dense(units=uts_2, kernel_initializer=init_mode_2, activation=acti_2,kernel_regularizer=regularizers.l1_l2(l1=ll_2, l2=ll_2))(dp_1)
-    dp_2=Dropout(dropout_rate_2)(ds_2)
-    ds_3 = Dense(units=uts_3, kernel_initializer=init_mode_3, activation=acti_3,kernel_regularizer=regularizers.l1_l2(l1=ll_3, l2=ll_3))(dp_2)
-    dp_3=Dropout(dropout_rate_3)(ds_3)    
-    ds_4 = Dense(units=uts_4, kernel_initializer=init_mode_4, activation=acti_4,kernel_regularizer=regularizers.l1_l2(l1=ll_4, l2=ll_4))(dp_3)
-    ds_5= Dense(units=1, kernel_initializer=init_mode_5,kernel_regularizer=regularizers.l1_l2(l1=ll_5, l2=ll_5))(ds_4)
-
-    model = Model(inputs=inputs, outputs=ds_5)
 
 
-    print("dropout_rate_1----"  + "dropout_rate_2----"  +"dropout_rate_3----"  +
-          "uts_1----" +"uts_2----" +"uts_3----" +"uts_4----" +
-          "acti_1----" +"acti_2----" +"acti_3----" +"acti_4----" +
-           "init_mode_1----" + "init_mode_2----" + "init_mode_3----" + "init_mode_4----" + "init_mode_5----" +
-          "ll_1----"+"ll_2----"+"ll_3----"+"ll_4----"+"ll_5----")
+    ds_3= Dense(units=1, kernel_initializer=init_mode_3,kernel_regularizer=regularizers.l1_l2(l1=ll_3, l2=ll_3))(ds_2)
 
-    print(str(dropout_rate_1) + "----"  +str(dropout_rate_2) + "----"  +str(dropout_rate_3) + "----"  +
-          str(uts_1) + "----"  +str(uts_2) + "----"  +str(uts_3) + "----"  +str(uts_4) + "----"  +
-          str(acti_1) + "----"  +str(acti_2) + "----"  +str(acti_3) + "----"  +str(acti_4) + "----"  +
-          str(init_mode_1) + "----"  +str(init_mode_2) + "----"  +str(init_mode_3) + "----"  +str(init_mode_4) + "----"  +str(init_mode_5) + "----"  +
-          str(ll_1) + "----"  +str(ll_2) + "----"  +str(ll_3) + "----"  +str(ll_4) + "----"  +str(ll_5) + "----" )
+    model = Model(inputs=inputs, outputs=ds_3)
+
+
+    print("dropout_rate_1----"  +
+          "uts_1----" +"uts_2----" +
+          "acti_1----" +"acti_2----" +
+           "init_mode_1----" + "init_mode_2----" + "init_mode_3----" +
+          "ll_1----"+"ll_2----"+"ll_3----")
+
+    print(str(dropout_rate_1) + "----"  +
+          str(uts_1) + "----"  +str(uts_2) + "----"  +
+          str(acti_1) + "----"  +str(acti_2) + "----"  +
+          str(init_mode_1) + "----"  +str(init_mode_2) + "----"  +str(init_mode_3) + "----"  +
+          str(ll_1) + "----"  +str(ll_2) + "----"  +str(ll_3) + "----"  )
           
 
 
@@ -322,19 +258,22 @@ def create_model(dropout_rate_1=0.0,dropout_rate_2=0.0,dropout_rate_3=0.0,uts_1=
 
 
 
-def fit_with(epochs, bs, dropout_rate_1,dropout_rate_2,dropout_rate_3, uts_1,uts_2,uts_3,uts_4, acti_1, 
-             acti_2,acti_3,acti_4,
-             init_mode_1,init_mode_2,init_mode_3,init_mode_4,init_mode_5,
-             ll_1,ll_2,ll_3,ll_4,ll_5):
+
+
+
+def fit_with(epochs, bs, dropout_rate_1,uts_1,uts_2,acti_1,
+             acti_2,
+             init_mode_1,init_mode_2,init_mode_3,
+             ll_1,ll_2,ll_3):
     # Create the model using a specified hyperparameters.
 
     for i, (train, test) in enumerate(rkf.split(X_train, Y_train)):
         print('\n\n%d' % i)
 
-        model = create_model(dropout_rate_1,dropout_rate_2,dropout_rate_3, uts_1,uts_2,uts_3,uts_4, acti_1, 
-             acti_2,acti_3,acti_4,
-             init_mode_1,init_mode_2,init_mode_3,init_mode_4,init_mode_5,
-             ll_1,ll_2,ll_3,ll_4,ll_5)
+        model = create_model(dropout_rate_1,uts_1,uts_2,acti_1,
+             acti_2,
+             init_mode_1,init_mode_2,init_mode_3,
+             ll_1,ll_2,ll_3)
         model.compile(loss='mean_squared_error', optimizer='adam',
                       metrics=[metrics.MeanSquaredError(), metrics.RootMeanSquaredError(),
                                metrics.MeanAbsoluteError()])
@@ -359,11 +298,11 @@ def fit_with(epochs, bs, dropout_rate_1,dropout_rate_2,dropout_rate_3, uts_1,uts
             bs = 64
 
         mc = ModelCheckpoint(str(round(epochs, 4)) + "-"  +str(round(bs, 4)) + "-"  +
-          str(round(dropout_rate_1, 4)) + "-"  +str(round(dropout_rate_2, 4)) + "-"  +str(round(dropout_rate_3, 4)) + "-"  +
-          str(round(uts_1, 4)) + "-"  +str(round(uts_2, 4)) + "-"  +str(round(uts_3, 4)) + "-"  +str(round(uts_4, 4)) + "-"  +
-          str(round(acti_1, 4)) + "-"  +str(round(acti_2, 4)) + "-"  +str(round(acti_3, 4)) + "-"  +str(round(acti_4, 4)) + "-"  +
-          str(round(init_mode_1, 4)) + "-"  +str(round(init_mode_2, 4)) + "-"  +str(round(init_mode_3, 4)) + "-"  +str(round(init_mode_4, 4)) + "-"  +str(round(init_mode_5, 4)) + "-"  +
-          str(round(ll_1, 4)) + "-"  +str(round(ll_2, 4)) + "-"  +str(round(ll_3, 4)) + "-"  +str(round(ll_4, 4)) + "-"  +str(round(ll_5, 4)) + "-"+'.h5', monitor='val_loss', mode='auto', verbose=1, save_best_only=True)
+          str(round(dropout_rate_1, 4)) + "-"  +
+          str(round(uts_1, 4)) + "-"  +str(round(uts_2, 4)) + "-"  +
+          str(round(acti_1, 4)) + "-"  +str(round(acti_2, 4)) + "-"  +
+          str(round(init_mode_1, 4)) + "-"  +str(round(init_mode_2, 4)) + "-"  +str(round(init_mode_3, 4)) + "-"  +
+          str(round(ll_1, 4)) + "-"  +str(round(ll_2, 4)) + "-"  +str(round(ll_3, 4))  + "-"+'.h5', monitor='val_loss', mode='auto', verbose=1, save_best_only=True)
     
     
 #        mc = ModelCheckpoint(str(epochs) + "-"  +str(bs) + "-"  +
@@ -449,22 +388,24 @@ if __name__ == '__main__':
 
     #X_train = mat[:50, :1000]
     #Y_train = label[:50]
+
     mse_score = []
     mae_score = []
     rmse_score = []
     # kfold = KFold(n_splits=5, shuffle=True, random_state=7)
     rkf = RepeatedKFold(n_splits=10, n_repeats=5, random_state=ran)
 
+
     training_start_time = time.time()
     print(training_start_time)
 
     fit_with_partial = partial(fit_with)
 
-    pbounds = {'epochs': (50, 50.99), 'bs': (1, 4.99), 'dropout_rate_1': (0, 0.549),'dropout_rate_2': (0, 0.549),'dropout_rate_3': (0, 0.549),
-           'uts_1': (1, 5.99), 'uts_2': (1, 5.99),'uts_3': (1, 5.99),'uts_4': (1, 5.99),
-            'acti_1': (1, 3.99),'acti_2': (1, 3.99),'acti_3': (1, 3.99),'acti_4': (1, 3.99),
-           'init_mode_1': (1, 3.99), 'init_mode_2': (1, 3.99),'init_mode_3': (1, 3.99),'init_mode_4': (1, 3.99),'init_mode_5': (1, 3.99),
-          'll_1': (1, 3.99),'ll_2': (1, 3.99),'ll_3': (1, 3.99),'ll_4': (1, 3.99),'ll_5': (1, 3.99),
+    pbounds = {'epochs': (50, 50.99), 'bs': (1, 4.99), 'dropout_rate_1': (0, 0.549),
+           'uts_1': (1, 5.99), 'uts_2': (1, 5.99),
+            'acti_1': (1, 3.99),'acti_2': (1, 3.99),
+           'init_mode_1': (1, 3.99), 'init_mode_2': (1, 3.99),'init_mode_3': (1, 3.99),
+          'll_1': (1, 3.99),'ll_2': (1, 3.99),'ll_3': (1, 3.99),
           }
 
     optimizer = BayesianOptimization(
