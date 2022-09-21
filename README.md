@@ -2,6 +2,18 @@
 AD-mutation-effectors
 
 
+
+\subsection{version}
+
+
+
+\begin{enumerate}
+\bayesian-optimization     1.1.0
+\eli5                      0.11.0
+
+\end{enumerate}
+
+
 # version
 bayesian-optimization     1.1.0
 eli5                      0.11.0
