@@ -23,6 +23,7 @@ Here is the demo for running Deep-SMCI and Deep-CMCI:
 ```
 For Deep-SMCI:
 Python Predict.py Deep-SMCI.h5 example_mutation.txt AD-score.txt
+
 For Deep-CMCI:
 Python Predict.py Deep-CMCI.h5 example_co_mutations.txt AD-score.txt
 ```
@@ -33,9 +34,12 @@ Here is the demo for model optimization and evaluation:
 For example,
 For optimizing GRU with four layers for AD-score prediction based on mutation profiles:
 Python GRU-4.py complete_mutation.txt complete_label.txt optimization_width optimization_depth seed >output1.txt 2>output1.sh.e
+
 For optimizing LSTM with three layers for AD-score prediction based on co-mutation profiles:
 Python LSTM-3.py complete_co-mutation.txt complete_label.txt optimization_width optimization_depth seed >output1.txt 2>output1.sh.e
+
 For optimizing FCN with five layers for AD-score prediction based on co-mutation profiles:
 Python FCN-5.py complete_co-mutation.txt complete_label.txt optimization_width optimization_depth seed >output1.txt 2>output1.sh.e
+
 ```
 
