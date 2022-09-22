@@ -14,3 +14,12 @@ keras                     2.4.3
 h5py                      2.10.0
 ```
 
+For Deep-SMCI and Deep-CMCI models, please refer to https://zenodo.org/record/7102185#.YyuuT3bMKPo.
+The complete processed datasets are available if the requesters are approved by Alzheimer's Disease Neuroimaging Initiative: ADNI.
+We also provide example datasets in the above link.
+To run Deep-SMCI and Deep-CMCI, please format your input files such as mutations matrix or co-mutations matrix like the example datasets we provide in the Zenodo link.
+
+Here is demo for running Deep-SMCI:
+```
+Python 
+```
