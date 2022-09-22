@@ -19,7 +19,12 @@ The complete processed datasets are available if the requesters are approved by 
 We also provide example datasets in the above link.
 To run Deep-SMCI and Deep-CMCI, please format your input files such as mutations matrix or co-mutations matrix like the example datasets we provide in the Zenodo link.
 
-Here is demo for running Deep-SMCI:
+Here is demo for running Deep-SMCI and Deep-CMCI:
 ```
-Python 
+For Deep-SMCI:
+Python Predict.py Deep-SMCI.h5 example_mutation.txt AD-score.txt
+For Deep-CMCI:
+Python Predict.py Deep-CMCI.h5 example_co_mutations.txt AD-score.txt
+
 ```
+To note, AD-score is the prediction output file
