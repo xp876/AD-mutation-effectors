@@ -1,8 +1,8 @@
 # AD-mutation-effectors
-This is for "AD-Syn-Net: Systematic identification of Alzheimer’s disease-associated mutation and co-mutation vulnerabilities via deep learning".
+This repository is for "AD-Syn-Net: Systematic identification of Alzheimer’s disease-associated mutation and co-mutation vulnerabilities via deep learning".
 
 
-Python packages information:
+Version information:
 ```
 h5py                      2.10.0
 eli5                      0.11.0
